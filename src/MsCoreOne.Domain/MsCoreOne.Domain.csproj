@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>MsCoreOne.Domain</RootNamespace>
+    <AssemblyName>MsCoreOne.Domain</AssemblyName>
+  </PropertyGroup>
+
+</Project>

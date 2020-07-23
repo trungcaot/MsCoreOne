@@ -1,0 +1,25 @@
+image: mcr.microsoft.com/dotnet/core/sdk:3.1
+
+stages:
+  - build
+  - test
+
+variables:
+  test: "MsCoreOne.IntegrationTests"
+
+before_script:
+    - "cd src"
+    - "dotnet restore MsCoreOne.Api"
+
+build:
+  stage: build
+  script:
+    - "dotnet build MsCoreOne.Api"
+
+test:
+  stage: test
+  script:
+    - 'cd ..'
+    - 'cd tests'
+    - 'cd $test'
+    - 'dotnet test MsCoreOne.IntegrationTests.csproj  /p:CollectCoverage=true /p:CoverletOutputFormat=\"opencover\" /p:CoverletOutput=BuildReports\Coverage\ /p:ExcludeByFile=\"**/Persistence/ApplicationDbContextSeed.cs\" /p:Exclude=\"[*]MsCoreOne.Infrastructure.Migrations.*,[*]MsCoreOne.Pages.*,[*]MsCoreOne.Areas.*\"'

@@ -1,0 +1,23 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+WORKDIR /src
+
+# copy csproj and restore as distinct layers
+COPY src/MsCoreOne.Application/*.csproj ./src/MsCoreOne.Application/
+COPY src/MsCoreOne.Api/*.csproj ./src/MsCoreOne.Api/
+COPY src/MsCoreOne.Domain/*.csproj ./src/MsCoreOne.Domain/
+COPY src/MsCoreOne.Infrastructure/*.csproj ./src/MsCoreOne.Infrastructure/
+COPY src/MsCoreOne.FrontMvc/*.csproj ./src/MsCoreOne.FrontMvc/
+COPY tests/MsCoreOne.IntegrationTests/*.csproj ./tests/MsCoreOne.IntegrationTests/
+COPY MsCoreOne.sln ./
+RUN dotnet restore -nowarn:msb3202,nu1503
+
+# copy everything else and build app
+COPY src/MsCoreOne.FrontMvc/. ./src/MsCoreOne.FrontMvc/
+
+WORKDIR /src/src/MsCoreOne.FrontMvc
+RUN dotnet publish -c Release -o out
+
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
+WORKDIR /app
+COPY --from=build /src/src/MsCoreOne.FrontMvc/out ./
+ENTRYPOINT ["dotnet", "MsCoreOne.FrontMvc.dll"]

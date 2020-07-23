@@ -1,0 +1,13 @@
+.dockerignore
+.env
+.git
+.gitignore
+.vs
+.vscode
+docker-build/
+deploy/
+**/*.csproj.user
+**/bin/
+**/obj/
+**/node_modules/
+**/_ReSharper.Caches/

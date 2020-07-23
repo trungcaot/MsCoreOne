@@ -1,0 +1,43 @@
+version: '3.4'
+
+services: 
+  mscoreone-react:
+    build:
+      context: ../mscoreone-react
+      dockerfile: Dockerfile.dev
+    environment: 
+      - REACT_APP_ENV_INFO=DockerTest-Env
+    ports: 
+      - "${MSCOREONE_REACT_PUBLISH_PORT}:80"
+    depends_on: 
+      - mscoreone
+    restart: on-failure
+
+  mscoreone:
+    build: 
+      context: ../../sd3648
+      dockerfile: Dockerfile.mscoreone.dev
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - ConnectionStrings:DefaultConnection=Data Source=${MSCOREONE_DB_HOST};Initial Catalog=${MSCOREONE_DB_NAME};User ID=sa;Password=${MSCOREONE_DB_PASSWORD};Integrated Security=False
+      - ClientUrl:Swagger=http://${MSCOREONE_PORTAL_URL_HOST}:${MSCOREONE_PUBLISH_PORT}
+      - ClientUrl:Mvc=http://${MSCOREONE_PORTAL_URL_HOST}:${MSCOREONE_MVC_PUBLISH_PORT}
+      - ClientUrl:React=http://${MSCOREONE_PORTAL_URL_HOST}:${MSCOREONE_REACT_PUBLISH_PORT}
+    ports: 
+      - "${MSCOREONE_PUBLISH_PORT}:80"
+    restart: on-failure
+    
+  mscoreone-mvc:
+    build: 
+      context: ../../sd3648
+      dockerfile: Dockerfile.mscoreone.mvc.dev
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - FrontMvc:BackendUrl=http://${MSCOREONE_PORTAL_URL_HOST}:${MSCOREONE_PUBLISH_PORT}
+    ports: 
+      - "${MSCOREONE_MVC_PUBLISH_PORT}:80"
+    depends_on:
+      - mscoreone
+    restart: on-failure

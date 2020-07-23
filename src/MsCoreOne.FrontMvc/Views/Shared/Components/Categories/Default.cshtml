@@ -1,0 +1,15 @@
+﻿@model IEnumerable<MsCoreOne.FrontMvc.Models.CategoryVm>
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Categories
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" asp-controller="Home" asp-action="Index">All</a>
+        @foreach (var category in Model)
+        {
+            <a class="dropdown-item" id="@category.Id" asp-controller="Home" asp-action="Index" asp-route-categoryId="@category.Id">@category.Name</a>
+        }
+    </div>
+</li>
+        

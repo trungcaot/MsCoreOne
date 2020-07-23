@@ -1,0 +1,43 @@
+﻿
+@model IEnumerable<MsCoreOne.FrontMvc.Models.ProductVm>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="container">
+    <div class="row">
+        @if (Model.Any())
+        {
+            foreach (var product in Model)
+            {
+                <div class="col-md-4">
+                    <figure class="card card-product">
+                        <div class="img-wrap"><img height="220" src="@ViewData["BackendUrl"]@product.ThumbnailImageUrl"></div>
+                        <figcaption class="info-wrap">
+                            <h4 class="title">@product.Name</h4>
+                            <p class="desc">@product.Description</p>
+                            <div class="rating-wrap">
+                                <vc:star rating="@product.Rating"></vc:star>
+                            </div>
+                        </figcaption>
+                        <div class="bottom-wrap">
+
+                            <a asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id" class="btn btn-sm btn-primary float-right">View</a>
+                            <a href="" class="btn btn-sm btn-primary float-right mr-2"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+                            <div class="price-wrap h5">
+                                <span class="price-new">$@product.Price</span> @*<del class="price-old">$1980</del>*@
+                            </div>
+                        </div>
+                    </figure>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col">
+                <div class="alert alert-secondary" role="alert">
+                    No data available
+                </div>
+            </div>
+        }
+    </div>
+</div>
