@@ -3,7 +3,7 @@
 
 <br/>
 
-This is a simple ecommerce project for training skill 2020 at NashTech.
+This is a simple ecommerce to practice technologies.
 
 
 ## Technologies and frameworks used
