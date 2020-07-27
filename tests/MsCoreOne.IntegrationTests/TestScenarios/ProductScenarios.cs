@@ -30,9 +30,10 @@ namespace MsCoreOne.IntegrationTests.TestScenarios
         {
             // Arrange
             HttpResponseMessage response;
+            string filePath = @"Common\Images\test.jpg";
 
             // Act
-            using (var file = File.OpenRead(@"Common\Images\test.jpg"))
+            using (var file = new FileStream(filePath, FileMode.Create))
             using (var content = new StreamContent(file))
             using (var formData = new MultipartFormDataContent())
             {
@@ -56,9 +57,10 @@ namespace MsCoreOne.IntegrationTests.TestScenarios
         {
             // Arrange
             HttpResponseMessage response;
+            string filePath = @"Common\Images\test.jpg";
 
             // Act
-            using (var file = File.OpenRead(@"Common\Images\test.jpg"))
+            using (var file = new FileStream(filePath, FileMode.Create))
             using (var content = new StreamContent(file))
             using (var formData = new MultipartFormDataContent())
             {

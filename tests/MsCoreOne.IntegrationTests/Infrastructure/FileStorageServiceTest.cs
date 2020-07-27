@@ -7,13 +7,7 @@ namespace MsCoreOne.IntegrationTests.Infrastructure
 {
     public class FileStorageServiceTest : IStorageService
     {
-        private readonly string _userContentFolder;
         private const string USER_CONTENT_FOLDER_NAME = "user-content";
-
-        public FileStorageServiceTest(IWebHostEnvironment webHostEnvironment)
-        {
-            _userContentFolder = Path.Combine(webHostEnvironment.WebRootPath, USER_CONTENT_FOLDER_NAME);
-        }
 
         public Task DeleteFileAsync(string fileName)
         {
