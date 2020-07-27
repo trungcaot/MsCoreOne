@@ -1,4 +1,6 @@
-﻿using MsCoreOne.Application.Products.Commands.CreateProduct;
+﻿using Moq;
+using MsCoreOne.Application.Common.Interfaces;
+using MsCoreOne.Application.Products.Commands.CreateProduct;
 using MsCoreOne.Application.Products.Commands.UpdateProduct;
 using MsCoreOne.Domain.Entities;
 using MsCoreOne.IntegrationTests.Common;
@@ -26,14 +28,15 @@ namespace MsCoreOne.IntegrationTests.TestScenarios
         [Fact, Priority(0)]
         public async Task Post_Success()
         {
-            // Act
+            // Arrange
             HttpResponseMessage response;
 
-            //using (var file = File.OpenRead(@"Common\Images\test.jpg"))
-            //using (var content = new StreamContent(file))
+            // Act
+            using (var file = File.OpenRead(@"Common\Images\test.jpg"))
+            using (var content = new StreamContent(file))
             using (var formData = new MultipartFormDataContent())
             {
-                //formData.Add(content, "file", "test.jpg");
+                formData.Add(content, "file", "test.jpg");
                 formData.Add(new StringContent("Product 1"), "name");
                 formData.Add(new StringContent("999"), "price");
                 formData.Add(new StringContent("1"), "categoryId");
@@ -41,7 +44,6 @@ namespace MsCoreOne.IntegrationTests.TestScenarios
 
                 response = await HttpClient.PostAsync(_url, formData);
             }
-
             var result = await response.Content.ReadAsStringAsync();
 
             // Assert
@@ -52,14 +54,15 @@ namespace MsCoreOne.IntegrationTests.TestScenarios
         [Fact, Priority(1)]
         public async Task Put_Success()
         {
-            // Act
+            // Arrange
             HttpResponseMessage response;
 
-            //using (var file = File.OpenRead(@"Common\Images\test.jpg"))
-            //using (var content = new StreamContent(file))
+            // Act
+            using (var file = File.OpenRead(@"Common\Images\test.jpg"))
+            using (var content = new StreamContent(file))
             using (var formData = new MultipartFormDataContent())
             {
-                //formData.Add(content, "file", "test.jpg");
+                formData.Add(content, "file", "test.jpg");
                 formData.Add(new StringContent("1"), "id");
                 formData.Add(new StringContent("Product name changed"), "name");
                 formData.Add(new StringContent("899"), "price");
@@ -68,7 +71,6 @@ namespace MsCoreOne.IntegrationTests.TestScenarios
 
                 response = await HttpClient.PutAsync(_url, formData);
             }
-
             var result = await response.Content.ReadAsStringAsync();
 
             // Assert

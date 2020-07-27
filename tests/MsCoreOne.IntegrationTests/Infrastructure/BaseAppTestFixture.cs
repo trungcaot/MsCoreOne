@@ -87,6 +87,8 @@ namespace MsCoreOne.IntegrationTests.Infrastructure
                         policy.RequireAuthenticatedUser();
                     });
                 });
+
+                services.AddTransient<IStorageService, FileStorageServiceTest>();
             });
 
             base.ConfigureWebHost(builder);
