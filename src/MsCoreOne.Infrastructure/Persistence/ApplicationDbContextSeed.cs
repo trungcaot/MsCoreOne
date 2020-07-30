@@ -11,8 +11,8 @@ namespace MsCoreOne.Infrastructure.Persistence
         public static async Task SeedDefaultUserAsync(UserManager<ApplicationUser> userManager)
         {
             var defaultUser = new ApplicationUser {
-                FirstName = "Trung",
-                Lastname = "Cao Thanh",
+                FirstName = "One",
+                Lastname = "MsCore",
                 UserName = "admin@mscoreone.com", 
                 Email = "admin@mscoreone.com" 
             };
@@ -25,7 +25,6 @@ namespace MsCoreOne.Infrastructure.Persistence
 
         public static async Task SeedSampleDataAsync(ApplicationDbContext context)
         {
-            // Seed, if necessary
             if (!context.Categories.Any())
             {
                 context.Categories.Add(new Category { Name = "Phones" });
