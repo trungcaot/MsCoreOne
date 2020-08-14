@@ -19,6 +19,7 @@ namespace MsCoreOne.Api.Filters
             {
                 { typeof(ValidationException), HandleValidationException },
                 { typeof(NotFoundException), HandleNotFoundException },
+                { typeof(DataConflictException), HandleDataConflictException }
             };
         }
 
@@ -84,6 +85,15 @@ namespace MsCoreOne.Api.Filters
             };
 
             context.Result = new NotFoundObjectResult(details);
+
+            context.ExceptionHandled = true;
+        }
+
+        private void HandleDataConflictException(ExceptionContext context)
+        {
+            var exception = context.Exception as DataConflictException;
+
+            context.Result = new BadRequestObjectResult(exception.Failures);
 
             context.ExceptionHandled = true;
         }

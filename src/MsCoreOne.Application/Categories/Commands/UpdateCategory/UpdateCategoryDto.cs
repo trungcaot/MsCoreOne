@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using MsCoreOne.Application.Categories.Queries.Dtos;
+using MsCoreOne.Application.Common.Base;
 using MsCoreOne.Application.Common.Exceptions;
 using MsCoreOne.Application.Common.Interfaces;
 using MsCoreOne.Domain.Entities;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MsCoreOne.Application.Categories.Commands.UpdateCategory
 {
-    public partial class UpdateCategoryDto : IRequest
+    public partial class UpdateCategoryDto : DataConflictBase<CategoryDto>, IRequest
     {
         public int Id { get; set; }
 
