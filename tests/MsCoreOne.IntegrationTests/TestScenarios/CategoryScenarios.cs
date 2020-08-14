@@ -41,7 +41,15 @@ namespace MsCoreOne.IntegrationTests.TestScenarios
         public async Task Put_Success()
         {
             // Arrange
-            var categoryDto = new UpdateCategoryDto { Id = 1, Name = "Category 2" };
+            var categoryDto = new UpdateCategoryDto { 
+                Id = 1, 
+                Name = "Category 2", 
+                Original = new CategoryDto
+                { 
+                    Id = 1,
+                    Name = "Category"
+                }
+            };
 
             // Act
             var response = await HttpClient.PutAsJsonAsync(_url, categoryDto);
