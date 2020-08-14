@@ -32,6 +32,7 @@ namespace MsCoreOne.Controllers
         }
 
         [HttpPut]
+        [AllowAnonymous]
         public async Task<IActionResult> Put([FromBody] UpdateCategoryDto dto)
         {
             return Ok(await Mediator.Send(dto));
