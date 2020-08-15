@@ -5,6 +5,8 @@
 
 This is a simple ecommerce to practice technologies.
 
+# Onion Architecture
+![alt text](/docs/imgs/onion-architecture.png)
 
 ## Technologies and frameworks used
 * .NET Core 3.1
