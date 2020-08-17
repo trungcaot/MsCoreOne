@@ -10,6 +10,7 @@ using MsCoreOne.Infrastructure;
 using MsCoreOne.Infrastructure.Persistence;
 using MsCoreOne.Api.Filters;
 using MsCoreOne.Api.Services;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 namespace MsCoreOne.Api
 {
@@ -37,6 +38,8 @@ namespace MsCoreOne.Api
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>();
 
+            services.RegisterApiVersioning();
+
             services.AddControllersWithViews(options => 
                 options.Filters.Add(new ApiExceptionFilter()))
                 .AddNewtonsoftJson();
@@ -47,7 +50,7 @@ namespace MsCoreOne.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -76,7 +79,12 @@ namespace MsCoreOne.Api
                 c.OAuthClientId("mscoreone-swagger");
                 c.OAuthClientSecret("secret");
                 c.OAuthUsePkce();
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MsCoreOne Api v1");
+
+                // build a swagger endpoint for each discorved API version
+                foreach (var description in provider.ApiVersionDescriptions)
+                {
+                    c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                }
             });
 
             app.UseCors(MyAllowSpecificOrigins);

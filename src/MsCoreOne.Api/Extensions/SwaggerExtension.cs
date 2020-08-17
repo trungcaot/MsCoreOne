@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using MsCoreOne.Configs;
 using MsCoreOne.Filters;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
 
@@ -10,13 +13,12 @@ namespace MsCoreOne.Extensions
     {
         public static void RegisterSwagger(this IServiceCollection services)
         {
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo 
-                { 
-                    Title = "MsCoreOne - API", 
-                    Version = "v1" 
-                });
+                // add a custom operation filter which sets default value
+                c.OperationFilter<SwaggerDefaultValuesOperationFilter>();
 
                 c.OperationFilter<AuthResponsesOperationFilter>();
 
