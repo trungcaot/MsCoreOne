@@ -4,6 +4,7 @@
 <br/>
 
 This is a simple ecommerce to practice technologies.
+![alt text](/docs/imgs/mscoreone_architecture.png)
 
 # Onion Architecture
 ![alt text](/docs/imgs/onion_architecture.png)
