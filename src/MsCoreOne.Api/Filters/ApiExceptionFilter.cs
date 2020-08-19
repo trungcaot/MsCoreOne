@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
+using MsCoreOne.Application.Common.ObjectResults;
 
 namespace MsCoreOne.Api.Filters
 {
@@ -93,7 +94,7 @@ namespace MsCoreOne.Api.Filters
         {
             var exception = context.Exception as DataConflictException;
 
-            context.Result = new BadRequestObjectResult(exception.Failures);
+            context.Result = new DataConflictObjectResult(exception.Failures);
 
             context.ExceptionHandled = true;
         }
