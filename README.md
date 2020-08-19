@@ -1,5 +1,5 @@
 
- # MsCoreOne - Simple Ecomerce
+ # MsCoreOne - Simple Ecommerce
 
 <br/>
 
