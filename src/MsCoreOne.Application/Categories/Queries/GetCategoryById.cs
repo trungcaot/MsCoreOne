@@ -1,12 +1,13 @@
 ﻿using MediatR;
 using MsCoreOne.Application.Categories.Queries.Dtos;
+using MsCoreOne.Application.Common.Bases;
 using MsCoreOne.Application.Common.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace MsCoreOne.Application.Categories.Queries
 {
-    public class GetCategoryByIdQuery : IRequest<CategoryDto>
+    public class GetCategoryByIdQuery : IRequest<BaseResponse<CategoryDto>>
     {
         public int Id { get; set; }
 
@@ -16,24 +17,18 @@ namespace MsCoreOne.Application.Categories.Queries
         }
     }
 
-    public class GetCategoryByIdQueryHandler : IRequestHandler<GetCategoryByIdQuery, CategoryDto>
+    public class GetCategoryByIdQueryHandler : BaseHandler, IRequestHandler<GetCategoryByIdQuery, BaseResponse<CategoryDto>>
     {
-        private readonly IApplicationDbContext _context;
-
         public GetCategoryByIdQueryHandler(IApplicationDbContext context)
-        {
-            _context = context;
-        }
+            :base(context) { }
 
-        public async Task<CategoryDto> Handle(GetCategoryByIdQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<CategoryDto>> Handle(GetCategoryByIdQuery request, CancellationToken cancellationToken)
         {
             var category = await _context.Categories.FindAsync(request.Id);
 
-            return new CategoryDto
-            {
-                Id = category.Id,
-                Name = category.Name
-            };
+            var categoryDto = new CategoryDto(category.Id, category.Name);
+
+            return new BaseResponse<CategoryDto>(categoryDto);
         }
     }
 }

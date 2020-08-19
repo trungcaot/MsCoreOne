@@ -1,12 +1,12 @@
 ﻿using MsCoreOne.Application.Categories.Queries.Dtos;
-using MsCoreOne.Application.Common.Base;
+using MsCoreOne.Application.Common.Bases;
 using MsCoreOne.Application.Common.Exceptions;
 using MsCoreOne.Application.Common.Interfaces;
 using System.Threading.Tasks;
 
 namespace MsCoreOne.Application.Categories.Commands.UpdateCategory
 {
-    public class DataConflictValidator : DataConflictValidatorBase<UpdateCategoryDto, CategoryDto>
+    public class DataConflictValidator : BaseDataConflictValidator<UpdateCategoryDto, CategoryDto>
     {
         private readonly UpdateCategoryDto _updateCategoryDto;
         private readonly IApplicationDbContext _context;

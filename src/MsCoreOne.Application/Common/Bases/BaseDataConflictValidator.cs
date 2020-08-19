@@ -1,26 +1,24 @@
 ﻿using MsCoreOne.Application.Common.Exceptions;
 using MsCoreOne.Application.Common.Extensions;
 using MsCoreOne.Application.Common.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace MsCoreOne.Application.Common.Base
+namespace MsCoreOne.Application.Common.Bases
 {
-    public class DataConflictBase<T>
+    public class BaseDataConflict<T>
     {
         public bool IsOverride { get; set; }
 
         public T Original { get; set; }
     }
 
-    public abstract class DataConflictValidatorBase<TOfUpdateDto, TOfOriginalObject> where TOfUpdateDto : DataConflictBase<TOfOriginalObject>
+    public abstract class BaseDataConflictValidator<TOfUpdateDto, TOfOriginalObject> where TOfUpdateDto : BaseDataConflict<TOfOriginalObject>
     {
         private readonly TOfUpdateDto _updateDto;
 
-        protected DataConflictValidatorBase(TOfUpdateDto updateDto)
+        protected BaseDataConflictValidator(TOfUpdateDto updateDto)
         {
             _updateDto = updateDto;
         }
