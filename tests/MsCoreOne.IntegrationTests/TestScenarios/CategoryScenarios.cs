@@ -80,9 +80,8 @@ namespace MsCoreOne.IntegrationTests.TestScenarios
         public async Task Get_Success()
         {
             // Act
-            var pagedUrl = $"{_url}?pageNumber=1&pageSize=10";
-            var response = await HttpClient.GetAsync(pagedUrl);
-            var categories = await response.BodyAs<PagedResponse<IEnumerable<CategoryDto>>>();
+            var response = await HttpClient.GetAsync(_url);
+            var categories = await response.BodyAs<IEnumerable<CategoryDto>>();
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
