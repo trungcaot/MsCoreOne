@@ -1,0 +1,19 @@
+language: csharp
+solution: MsCoreOne.sln
+sudo: required
+dist: xenial
+dotnet: 3.1.100
+mono: none
+os:
+  - linux
+
+branches:
+  only:
+    - master
+
+before_script:
+  - dotnet restore
+
+script:
+  - dotnet build ./MsCoreOne.sln
+  - ./run-tests.sh
