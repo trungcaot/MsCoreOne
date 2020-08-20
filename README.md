@@ -42,18 +42,6 @@
 * React + typescript + Redux
 * Material UI
 
-
-## Getting Started
-
-Welcome to MsCoreOne!
-
-
-# Store demo on Azure
- - [Front-office](https://mscoreonemvc.azurewebsites.net/): Mscoreone - mvc
- - [Back-office](https://mscoreone.z23.web.core.windows.net/): Mscoreone - react
- - [Swagger-api](https://mscoreone.azurewebsites.net/): Mscoreone - api
-
-
 # Account default
  - Username: admin@mscoreone.com
  - Password: P@ssw0rd
