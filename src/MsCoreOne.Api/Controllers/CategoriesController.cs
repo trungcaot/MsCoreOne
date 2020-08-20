@@ -6,6 +6,7 @@ using MsCoreOne.Application.Categories.Commands.UpdateCategory;
 using MsCoreOne.Application.Categories.Queries;
 using MsCoreOne.Api.Controllers;
 using System.Threading.Tasks;
+using MsCoreOne.Application.Common.Models;
 
 namespace MsCoreOne.Controllers
 {
@@ -13,9 +14,9 @@ namespace MsCoreOne.Controllers
     {
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] PaginationFilter filter)
         {
-            return Ok(await Mediator.Send(new GetCategoriesQuery()));
+            return Ok(await Mediator.Send(new GetCategoriesQuery(filter)));
         }
 
         [HttpGet("{id}")]
