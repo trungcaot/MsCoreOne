@@ -1,6 +1,7 @@
 ﻿using MsCoreOne.Application.Categories.Commands.CreateCategory;
 using MsCoreOne.Application.Categories.Commands.UpdateCategory;
 using MsCoreOne.Application.Categories.Queries.Dtos;
+using MsCoreOne.Application.Common.Models;
 using MsCoreOne.IntegrationTests.Common;
 using MsCoreOne.IntegrationTests.Common.Extensions;
 using MsCoreOne.IntegrationTests.Common.Utility.TestCaseOrdering;
@@ -79,8 +80,9 @@ namespace MsCoreOne.IntegrationTests.TestScenarios
         public async Task Get_Success()
         {
             // Act
-            var response = await HttpClient.GetAsync(_url);
-            var categories = await response.BodyAs<IEnumerable<CategoryDto>>();
+            var pagedUrl = $"{_url}?pageNumber=1&pageSize=10";
+            var response = await HttpClient.GetAsync(pagedUrl);
+            var categories = await response.BodyAs<PagedResponse<IEnumerable<CategoryDto>>>();
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
