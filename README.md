@@ -1,14 +1,28 @@
 
  # MsCoreOne - Simple Ecommerce
 
+ This is a simple ecommerce to practice technologies.
+
 ## Build Status
 | Build server    | Platform       | Status      |
 |-----------------|----------------|-------------|
 |Travis           | Linux / MacOS  |[![Build Status](https://travis-ci.com/trungcaot/MsCoreOne.svg?branch=master)](https://travis-ci.com/github/trungcaot/MsCoreOne) |
 
 
-This is a simple ecommerce to practice technologies.
 ![alt text](/docs/imgs/mscoreone_architecture.png)
+
+## The technologies have implemented as image above.
+| Technologies    | Yes/No       |
+|-----------------|----------------|
+|ASP .NET Core | Yes |
+|ASP .NET Core Mvc | Yes |
+|Entity Framework Core | Yes |
+|Identity Server 4 | Yes |
+|Swagger UI | Yes |
+|React + Typescript | Yes |
+|Sql Server | Yes |
+|PostgresQL | No |
+|Vue js/Blazor/Angular | No |
 
 # Onion Architecture
 ![alt text](/docs/imgs/onion_architecture.png)
