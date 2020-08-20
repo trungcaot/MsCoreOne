@@ -2,6 +2,11 @@
  # MsCoreOne - Simple Ecommerce
 
 <br/>
+## Build Status
+| Build server    | Platform       | Status      |
+|-----------------|----------------|-------------|
+|Travis           | Linux / MacOS  |[![Build Status](https://travis-ci.com/trungcaot/MsCoreOne.svg?branch=master)](https://travis-ci.com/github/trungcaot/MsCoreOne) |
+
 
 This is a simple ecommerce to practice technologies.
 ![alt text](/docs/imgs/mscoreone_architecture.png)
