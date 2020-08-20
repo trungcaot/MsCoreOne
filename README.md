@@ -1,7 +1,6 @@
 
  # MsCoreOne - Simple Ecommerce
 
-<br/>
 ## Build Status
 | Build server    | Platform       | Status      |
 |-----------------|----------------|-------------|
