@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MsCoreOne.Application.Categories.Queries
 {
-    public class GetCategoryByIdQuery : IRequest<BaseResponse<CategoryDto>>
+    public class GetCategoryByIdQuery : IRequest<CategoryDto>
     {
         public int Id { get; set; }
 
@@ -17,18 +17,16 @@ namespace MsCoreOne.Application.Categories.Queries
         }
     }
 
-    public class GetCategoryByIdQueryHandler : BaseHandler, IRequestHandler<GetCategoryByIdQuery, BaseResponse<CategoryDto>>
+    public class GetCategoryByIdQueryHandler : BaseHandler, IRequestHandler<GetCategoryByIdQuery, CategoryDto>
     {
         public GetCategoryByIdQueryHandler(IApplicationDbContext context)
             :base(context) { }
 
-        public async Task<BaseResponse<CategoryDto>> Handle(GetCategoryByIdQuery request, CancellationToken cancellationToken)
+        public async Task<CategoryDto> Handle(GetCategoryByIdQuery request, CancellationToken cancellationToken)
         {
             var category = await _context.Categories.FindAsync(request.Id);
 
-            var categoryDto = new CategoryDto(category.Id, category.Name);
-
-            return new BaseResponse<CategoryDto>(categoryDto);
+            return new CategoryDto(category.Id, category.Name);
         }
     }
 }

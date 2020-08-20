@@ -15,7 +15,7 @@ services:
 
   mscoreone:
     build: 
-      context: ../../sd3648
+      context: ../../MsCoreOne
       dockerfile: Dockerfile.mscoreone.dev
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -30,7 +30,7 @@ services:
     
   mscoreone-mvc:
     build: 
-      context: ../../sd3648
+      context: ../../MsCoreOne
       dockerfile: Dockerfile.mscoreone.mvc.dev
     environment: 
       - ASPNETCORE_ENVIRONMENT=Development

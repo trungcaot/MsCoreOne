@@ -14,9 +14,9 @@ namespace MsCoreOne.Controllers
     {
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Get([FromQuery] PaginationFilter filter)
+        public async Task<IActionResult> Get()
         {
-            return Ok(await Mediator.Send(new GetCategoriesQuery(filter)));
+            return Ok(await Mediator.Send(new GetCategoriesQuery()));
         }
 
         [HttpGet("{id}")]
@@ -33,7 +33,6 @@ namespace MsCoreOne.Controllers
         }
 
         [HttpPut]
-        [AllowAnonymous]
         public async Task<IActionResult> Put([FromBody] UpdateCategoryDto dto)
         {
             return Ok(await Mediator.Send(dto));

@@ -13,17 +13,14 @@ using System.Threading.Tasks;
 
 namespace MsCoreOne.Application.Categories.Queries
 {
-    public class GetCategoriesQuery : IRequest<PagedResponse<IEnumerable<CategoryDto>>>
+    public class GetCategoriesQuery : IRequest<IEnumerable<CategoryDto>>
     {
-        public PaginationFilter PaginationFilter { get; set; }
-
-        public GetCategoriesQuery(PaginationFilter paginationFilter) 
+        public GetCategoriesQuery() 
         {
-            PaginationFilter = paginationFilter;
         }
     }
 
-    public class GetCategoriesHandler : BaseHandler, IRequestHandler<GetCategoriesQuery, PagedResponse<IEnumerable<CategoryDto>>>
+    public class GetCategoriesHandler : BaseHandler, IRequestHandler<GetCategoriesQuery, IEnumerable<CategoryDto>>
     {
         private readonly IMemoryCache _memoryCache;
 
@@ -33,15 +30,11 @@ namespace MsCoreOne.Application.Categories.Queries
             _memoryCache = memoryCache;
         }
 
-        public async Task<PagedResponse<IEnumerable<CategoryDto>>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<CategoryDto>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
         {
-            var validFilter = new PaginationFilter(request.PaginationFilter.PageNumber, request.PaginationFilter.PageSize);
-
             if (!_memoryCache.TryGetValue(nameof(GetCategoriesQuery), out IEnumerable<CategoryDto> categoryDtos))
             {
-                var categories = await _context.Categories.Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
-                    .Take(validFilter.PageSize)
-                    .ToListAsync();
+                var categories = await _context.Categories.ToListAsync();
 
                 var cacheExpiryOptions = new MemoryCacheEntryOptions
                 {
@@ -56,7 +49,7 @@ namespace MsCoreOne.Application.Categories.Queries
                                 });
                 _memoryCache.Set(nameof(GetCategoriesQuery), categoryDtos, cacheExpiryOptions);
             }
-            return new PagedResponse<IEnumerable<CategoryDto>>(categoryDtos, validFilter.PageNumber, validFilter.PageSize);
+            return categoryDtos;
         }
     }
 }
