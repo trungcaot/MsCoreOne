@@ -11,6 +11,12 @@ using MsCoreOne.Infrastructure.Persistence;
 using MsCoreOne.Api.Filters;
 using MsCoreOne.Api.Services;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using MsCoreOne.Application.Common.Models;
+using System.Linq;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
+using System;
 
 namespace MsCoreOne.Api
 {
@@ -36,7 +42,8 @@ namespace MsCoreOne.Api
             services.AddHttpContextAccessor();
 
             services.AddHealthChecks()
-                .AddDbContextCheck<ApplicationDbContext>();
+                .AddDbContextCheck<ApplicationDbContext>()
+                .AddUrlGroup(new Uri("https://localhost:5003"), name: "MsCoreOne - Mvc");
 
             services.RegisterApiVersioning();
 
@@ -64,7 +71,26 @@ namespace MsCoreOne.Api
                 app.UseHsts();
             }
 
-            app.UseHealthChecks("/health");
+            app.UseHealthChecks("/health", new HealthCheckOptions
+            {
+                ResponseWriter = async (context, report) =>
+                {
+                    context.Response.ContentType = "application/json";
+                    var response = new HealthCheckReponse
+                    {
+                        Status = report.Status.ToString(),
+                        HealthChecks = report.Entries.Select(x => new IndividualHealthCheckResponse
+                        {
+                            Component = x.Key,
+                            Status = x.Value.Status.ToString(),
+                            Description = x.Value.Description
+                        }),
+                        HealthCheckDuration = report.TotalDuration
+                    };
+                    await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
+                }
+            });
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             
