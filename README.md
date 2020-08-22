@@ -7,7 +7,7 @@
 | Build server    | Platform       | Status      |
 |-----------------|----------------|-------------|
 |Travis           | Linux / MacOS  |[![Build Status](https://travis-ci.com/trungcaot/MsCoreOne.svg?branch=master)](https://travis-ci.com/github/trungcaot/MsCoreOne) |
-
+|Azure DevOps           | Linux  |[![Build Status](https://dev.azure.com/trungcaot/MsCoreOne/_apis/build/status/trungcaot.MsCoreOne?branchName=master)](https://dev.azure.com/trungcaot/MsCoreOne/_build/latest?definitionId=1&branchName=master) |
 
 ![alt text](/docs/imgs/mscoreone_architecture.png)
 
@@ -29,18 +29,6 @@
 
 # Layers Example
 ![alt text](/docs/imgs/layers_example.png)
-
-## Technologies and frameworks used
-* .NET Core 3.1
-* ASP .NET Core 3.1
-* Entity Framework Core 3.1
-* Swagger UI
-* IdentityServer4
-* MediatR
-* FluentValidation
-* XUnit
-* React + typescript + Redux
-* Material UI
 
 # Account default
  - Username: admin@mscoreone.com
