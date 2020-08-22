@@ -7,7 +7,7 @@
 | Build server    | Platform       | Status      |
 |-----------------|----------------|-------------|
 |Travis           | Linux / MacOS  |[![Build Status](https://travis-ci.com/trungcaot/MsCoreOne.svg?branch=master)](https://travis-ci.com/github/trungcaot/MsCoreOne) |
-|Azure DevOps           | Linux  |[![Build Status](https://dev.azure.com/trungcaot/MsCoreOne/_apis/build/status/trungcaot.MsCoreOne?branchName=master)](https://dev.azure.com/trungcaot/MsCoreOne/_build/latest?definitionId=1&branchName=master) |
+|Azure DevOps     | Linux          |[![Build Status](https://dev.azure.com/trungcaot/MsCoreOne/_apis/build/status/trungcaot.MsCoreOne?branchName=master)](https://dev.azure.com/trungcaot/MsCoreOne/_build/latest?definitionId=1&branchName=master) |
 
 ![alt text](/docs/imgs/mscoreone_architecture.png)
 
