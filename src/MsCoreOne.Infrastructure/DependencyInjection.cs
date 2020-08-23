@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,7 +42,8 @@ namespace MsCoreOne.Infrastructure
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddIdentityServer(options => {
+            services.AddIdentityServer(options =>
+            {
                 options.Events.RaiseErrorEvents = true;
                 options.Events.RaiseInformationEvents = true;
                 options.Events.RaiseFailureEvents = true;
@@ -103,6 +105,11 @@ namespace MsCoreOne.Infrastructure
                         return Task.CompletedTask;
                     }
                 };
+            });
+
+            services.AddSingleton<IUriService>(o =>
+            {
+                return new UriService(clientUrls["Swagger"]);
             });
 
             return services;
