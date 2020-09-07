@@ -48,6 +48,17 @@ namespace MsCoreOne.Infrastructure.Persistence
 
                 await context.SaveChangesAsync();
             }
+
+            if (!context.Countries.Any())
+            {
+                context.Countries.Add(new Country { SortName = "VN", Name = "Vietnam", PhoneCode = "84" });
+                context.Countries.Add(new Country { SortName = "US", Name = "United States", PhoneCode = "1" });
+                context.Countries.Add(new Country { SortName = "ES", Name = "Spain", PhoneCode = "34" });
+                context.Countries.Add(new Country { SortName = "MX", Name = "Mexico", PhoneCode = "52" });
+                context.Countries.Add(new Country { SortName = "LU", Name = "Luxembourg", PhoneCode = "352" });
+
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

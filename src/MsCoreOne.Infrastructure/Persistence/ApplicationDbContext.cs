@@ -29,6 +29,8 @@ namespace MsCoreOne.Infrastructure.Persistence
 
         public DbSet<Brand> Brands { get; set; }
 
+        public DbSet<Country> Countries { get; set; }
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             return base.SaveChangesAsync(cancellationToken);
