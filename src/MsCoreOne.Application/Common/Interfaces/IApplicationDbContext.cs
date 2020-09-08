@@ -13,6 +13,8 @@ namespace MsCoreOne.Application.Common.Interfaces
 
         DbSet<Brand> Brands { get; set; }
 
+        DbSet<Country> Countries { get; set; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
