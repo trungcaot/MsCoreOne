@@ -55,6 +55,7 @@ namespace MsCoreOne.Application.Utilities.Queries
                 serializedCountries = JsonConvert.SerializeObject(countryDtos);
                 redisCountries = Encoding.UTF8.GetBytes(serializedCountries);
 
+                //TODO: Need to move options to global of the system.
                 var options = new DistributedCacheEntryOptions()
                     .SetAbsoluteExpiration(DateTime.Now.AddMinutes(10))
                     .SetSlidingExpiration(TimeSpan.FromMinutes(2));
