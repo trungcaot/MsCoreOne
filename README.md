@@ -72,3 +72,12 @@ To get converlet to collect code coverage for your codebase, we need just to run
 dotnet test MsCoreOne.IntegrationTests.csproj  /p:CollectCoverage=true /p:CoverletOutputFormat=\"opencover\" /p:CoverletOutput=BuildReports\Coverage\ /p:ExcludeByFile=\"**/Persistence/ApplicationDbContextSeed.cs\" /p:Exclude=\"[*]MsCoreOne.Infrastructure.Migrations.*,[*]MsCoreOne.Pages.*,[*]MsCoreOne.Areas.*\"
 
 ```
+
+## Distributed Caching with Redis
+To testing with redis cache, you can install redis by the following way:
+1. Install manually redis from [ github repo](https://github.com/microsoftarchive/redis/releases/tag/win-3.0.504) and that download zip file that is compatible with your windows, extract the zip folder, and open up redis-server.exe 
+2. Using docker to up redis by access to development folder then open powershell and that run command bellow.
+```
+docker-compose -f .\docker-compose-infra.yml up redis
+```
+Note: You should update your IP in appsetting for redis configuration to make sure mscoreone-api connect to redis server successfully.
