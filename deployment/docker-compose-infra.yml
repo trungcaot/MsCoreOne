@@ -12,5 +12,13 @@ services:
     volumes:
       - mssqldata:/var/lib/mssql
 
+  redis:
+    image: redis:alpine
+    container_name: redis_db
+    ports: 
+      - 6379:6379
+    volumes: 
+      - ./redis-vol:/data
+    restart: on-failure
 volumes:
   mssqldata:
