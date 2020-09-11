@@ -43,6 +43,9 @@ namespace MsCoreOne.IntegrationTests.Infrastructure
 
             context.Products.Add(product);
 
+            var country = new Country { Id = 1, Name = "Viet Nam", SortName = "84", PhoneCode = "84" };
+            context.Countries.Add(country);
+
             context.SaveChanges();
 
             return context;

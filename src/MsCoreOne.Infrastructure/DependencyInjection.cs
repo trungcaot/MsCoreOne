@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MsCoreOne.Application.Common.Interfaces;
+using MsCoreOne.Infrastructure.Caching;
 using MsCoreOne.Infrastructure.Identity;
 using MsCoreOne.Infrastructure.Identity.Configuration;
 using MsCoreOne.Infrastructure.Persistence;
@@ -111,6 +112,9 @@ namespace MsCoreOne.Infrastructure
             {
                 return new UriService(clientUrls["Swagger"]);
             });
+
+            services.AddMemoryCache();
+            services.AddSingleton<IMemoryCacheManager, MemoryCacheManager>();
 
             return services;
         }
