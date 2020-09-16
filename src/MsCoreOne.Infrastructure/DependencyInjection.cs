@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MsCoreOne.Application.Common.Interfaces;
+using MsCoreOne.Application.Common.Interfaces.Repositories;
 using MsCoreOne.Infrastructure.Caching;
 using MsCoreOne.Infrastructure.Identity;
 using MsCoreOne.Infrastructure.Identity.Configuration;
 using MsCoreOne.Infrastructure.Persistence;
+using MsCoreOne.Infrastructure.Repositories;
 using MsCoreOne.Infrastructure.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -58,6 +60,13 @@ namespace MsCoreOne.Infrastructure
 
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<IStorageService, FileStorageService>();
+
+            // Repositories
+            services.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddAuthentication()
                 .AddLocalApi("Bearer", option =>

@@ -4,11 +4,11 @@ namespace MsCoreOne.Application.Common.Bases
 {
     public abstract class BaseHandler
     {
-        protected readonly IApplicationDbContext _context;
+        protected readonly IUnitOfWork _unitOfWork;
 
-        protected BaseHandler(IApplicationDbContext context)
+        protected BaseHandler(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
     }
 }

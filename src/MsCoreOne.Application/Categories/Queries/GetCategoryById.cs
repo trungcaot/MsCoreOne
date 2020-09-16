@@ -19,12 +19,12 @@ namespace MsCoreOne.Application.Categories.Queries
 
     public class GetCategoryByIdQueryHandler : BaseHandler, IRequestHandler<GetCategoryByIdQuery, CategoryDto>
     {
-        public GetCategoryByIdQueryHandler(IApplicationDbContext context)
-            :base(context) { }
+        public GetCategoryByIdQueryHandler(IUnitOfWork unitOfWork)
+            :base(unitOfWork) { }
 
         public async Task<CategoryDto> Handle(GetCategoryByIdQuery request, CancellationToken cancellationToken)
         {
-            var category = await _context.Categories.FindAsync(request.Id);
+            var category = await _unitOfWork.Categories.GetByIdAsync(request.Id);
 
             return new CategoryDto(category.Id, category.Name);
         }

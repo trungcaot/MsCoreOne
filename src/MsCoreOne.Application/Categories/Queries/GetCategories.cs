@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
 using MsCoreOne.Application.Categories.Queries.Dtos;
 using MsCoreOne.Application.Common.Bases;
 using MsCoreOne.Application.Common.Interfaces;
@@ -21,9 +20,9 @@ namespace MsCoreOne.Application.Categories.Queries
     {
         private readonly IMemoryCacheManager _memoryCacheManager;
 
-        public GetCategoriesHandler(IApplicationDbContext context, 
+        public GetCategoriesHandler(IUnitOfWork unitOfWork, 
             IMemoryCacheManager memoryCacheManager)
-            :base(context)
+            :base(unitOfWork)
         {
             _memoryCacheManager = memoryCacheManager;
         }
@@ -32,7 +31,7 @@ namespace MsCoreOne.Application.Categories.Queries
         {
             if (!_memoryCacheManager.TryGetValue(nameof(GetCategoriesQuery), out IEnumerable<CategoryDto> categoryDtos))
             {
-                var categories = await _context.Categories.ToListAsync();
+                var categories = await _unitOfWork.Categories.GetAllAsync();
 
                 categoryDtos = categories.Select(c => new CategoryDto
                                 {
