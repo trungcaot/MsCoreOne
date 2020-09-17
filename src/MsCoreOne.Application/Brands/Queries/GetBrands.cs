@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
+using MsCoreOne.Application.Common.Bases;
 using MsCoreOne.Application.Common.Interfaces;
 using MsCoreOne.Domain.Entities;
 using System.Collections.Generic;
@@ -13,18 +13,14 @@ namespace MsCoreOne.Application.Brands.Queries
         public GetBrandsQuery() { }
     }
 
-    public class GetCategoriesHandler : IRequestHandler<GetBrandsQuery, IEnumerable<Brand>>
+    public class GetCategoriesHandler : BaseHandler, IRequestHandler<GetBrandsQuery, IEnumerable<Brand>>
     {
-        private readonly IApplicationDbContext _context;
-
-        public GetCategoriesHandler(IApplicationDbContext context)
-        {
-            _context = context;
-        }
+        public GetCategoriesHandler(IUnitOfWork unitOfWork)
+            :base(unitOfWork) { }
 
         public async Task<IEnumerable<Brand>> Handle(GetBrandsQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Brands.ToListAsync();
+            return await _unitOfWork.Brands.GetAllAsync();
         }
     }
 }

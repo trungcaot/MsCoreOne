@@ -13,6 +13,7 @@ namespace MsCoreOne.Infrastructure
         private readonly ApplicationDbContext _context;
 
         private ICategoryRepository _categoryRepository;
+        private IBrandRepository _brandRepository;
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -20,6 +21,7 @@ namespace MsCoreOne.Infrastructure
         }
 
         public ICategoryRepository Categories => _categoryRepository ?? (_categoryRepository = new CategoryRepository(_context));
+        public IBrandRepository Brands => _brandRepository ?? (_brandRepository = new BrandRepository(_context));
 
         public void Dispose()
         {
