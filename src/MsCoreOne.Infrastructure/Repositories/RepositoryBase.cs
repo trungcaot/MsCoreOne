@@ -23,9 +23,19 @@ namespace MsCoreOne.Infrastructure.Repositories
             await _context.Set<TEntity>().AddAsync(entity);
         }
 
+        public async Task AddRangeAsync(IEnumerable<TEntity> entities)
+        {
+            await _context.Set<TEntity>().AddRangeAsync(entities);
+        }
+
         public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
             return await _context.Set<TEntity>().Where(predicate).AsNoTracking().ToListAsync();
+        }
+
+        public async Task<TEntity> FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _context.Set<TEntity>().FirstOrDefaultAsync(predicate);
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
@@ -36,6 +46,16 @@ namespace MsCoreOne.Infrastructure.Repositories
         public async Task<TEntity> GetByIdAsync(int id)
         {
             return await _context.Set<TEntity>().FindAsync(id);
+        }
+
+        public void Remove(TEntity entity)
+        {
+            _context.Set<TEntity>().Remove(entity);
+        }
+
+        public void Update(TEntity entity)
+        {
+            _context.Set<TEntity>().Update(entity);
         }
     }
 }

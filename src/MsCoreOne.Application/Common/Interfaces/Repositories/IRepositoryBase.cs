@@ -13,8 +13,16 @@ namespace MsCoreOne.Application.Common.Interfaces.Repositories
 
         Task<TEntity> GetByIdAsync(int id);
 
+        Task<TEntity> FirstOrDefault(Expression<Func<TEntity, bool>> predicate);
+
         Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> expression);
 
         Task Add(TEntity entity);
+
+        Task AddRangeAsync(IEnumerable<TEntity> entities);
+
+        void Update(TEntity entity);
+
+        void Remove(TEntity entity);
     }
 }
