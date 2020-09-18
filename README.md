@@ -27,6 +27,11 @@
 # Onion Architecture
 ![alt text](/docs/imgs/onion_architecture.png)
 
+# ASP.NET Core architecture diagram following Clean Architecture
+![alt text](https://docs.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/media/image5-9.png)
+
+You probally access to [link](https://docs.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures) to get more detail for common web application architectures 
+
 # Layers Example
 ![alt text](/docs/imgs/layers_example.png)
 
