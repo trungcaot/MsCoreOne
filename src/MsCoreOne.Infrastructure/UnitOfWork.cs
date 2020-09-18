@@ -2,9 +2,6 @@
 using MsCoreOne.Application.Common.Interfaces.Repositories;
 using MsCoreOne.Infrastructure.Persistence;
 using MsCoreOne.Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MsCoreOne.Infrastructure
 {
@@ -14,6 +11,7 @@ namespace MsCoreOne.Infrastructure
 
         private ICategoryRepository _categoryRepository;
         private IBrandRepository _brandRepository;
+        private IProductRepository _productRepository;
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -22,6 +20,7 @@ namespace MsCoreOne.Infrastructure
 
         public ICategoryRepository Categories => _categoryRepository ?? (_categoryRepository = new CategoryRepository(_context));
         public IBrandRepository Brands => _brandRepository ?? (_brandRepository = new BrandRepository(_context));
+        public IProductRepository Products => _productRepository ?? (_productRepository = new ProductRepository(_context));
 
         public void Dispose()
         {

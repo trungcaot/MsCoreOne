@@ -10,5 +10,7 @@ namespace MsCoreOne.Application.Common.Interfaces
         ICategoryRepository Categories { get; }
 
         IBrandRepository Brands { get; }
+
+        IProductRepository Products { get; }
     }
 }

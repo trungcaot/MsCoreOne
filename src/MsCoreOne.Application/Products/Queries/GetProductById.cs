@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
+using MsCoreOne.Application.Common.Bases;
 using MsCoreOne.Application.Common.Interfaces;
 using MsCoreOne.Application.Products.Queries.Dtos;
 using System.Linq;
@@ -18,24 +18,20 @@ namespace MsCoreOne.Application.Products.Queries
         }
     }
 
-    public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ProductDto>
+    public class GetProductByIdQueryHandler : BaseHandler, IRequestHandler<GetProductByIdQuery, ProductDto>
     {
-        private readonly IApplicationDbContext _context;
         private readonly IStorageService _storageService;
 
-        public GetProductByIdQueryHandler(IApplicationDbContext context,
+        public GetProductByIdQueryHandler(IUnitOfWork unitOfWork,
             IStorageService storageService)
+            :base(unitOfWork)
         {
-            _context = context;
-
             _storageService = storageService;
         }
 
         public async Task<ProductDto> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var product = await _context.Products
-                .Include(p => p.ProductCategories)
-                .FirstOrDefaultAsync(p => p.Id == request.Id);
+            var product = await _unitOfWork.Products.FirstOrDefaultAsync(p => p.Id == request.Id);
 
             if (product == null)
             {

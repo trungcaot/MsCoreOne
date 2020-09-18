@@ -64,7 +64,7 @@ namespace MsCoreOne.Infrastructure
             // Repositories
             services.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
             services.AddTransient<ICategoryRepository, CategoryRepository>();
-
+            services.AddTransient<IProductRepository, ProductRepository>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
