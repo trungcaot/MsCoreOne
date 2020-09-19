@@ -1,7 +1,7 @@
 ﻿using MsCoreOne.Application.Common.Interfaces.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MsCoreOne.Application.Common.Interfaces
 {
@@ -12,5 +12,7 @@ namespace MsCoreOne.Application.Common.Interfaces
         IBrandRepository Brands { get; }
 
         IProductRepository Products { get; }
+
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

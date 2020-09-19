@@ -2,6 +2,8 @@
 using MsCoreOne.Application.Common.Interfaces.Repositories;
 using MsCoreOne.Infrastructure.Persistence;
 using MsCoreOne.Infrastructure.Repositories;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MsCoreOne.Infrastructure
 {
@@ -25,6 +27,11 @@ namespace MsCoreOne.Infrastructure
         public void Dispose()
         {
             _context.Dispose();
+        }
+
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            return await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }
