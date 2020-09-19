@@ -9,18 +9,19 @@ namespace MsCoreOne.Application.Categories.Commands.UpdateCategory
     public class DataConflictValidator : BaseDataConflictValidator<UpdateCategoryDto, CategoryDto>
     {
         private readonly UpdateCategoryDto _updateCategoryDto;
-        private readonly IApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
         public DataConflictValidator(UpdateCategoryDto updateCategoryDto,
-            IApplicationDbContext context) : base(updateCategoryDto)
+            IUnitOfWork unitOfWork) : base(updateCategoryDto)
         {
             _updateCategoryDto = updateCategoryDto;
-            _context = context;
+
+            _unitOfWork = unitOfWork;
         }
 
         protected override async Task<CategoryDto> GetLatestDataFromDbAsync()
         {
-            var category = await _context.Categories.FindAsync(_updateCategoryDto.Id);
+            var category = await _unitOfWork.Categories.FirstOrDefaultAsync(c => c.Id == _updateCategoryDto.Id);
             if (category == null)
             {
                 throw new NotFoundException("Category is not exist.");

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MsCoreOne.Application.Common.Bases;
 using MsCoreOne.Application.Common.Exceptions;
 using MsCoreOne.Application.Common.Interfaces;
 using MsCoreOne.Domain.Entities;
@@ -17,27 +18,25 @@ namespace MsCoreOne.Application.Products.Commands.DeleteProduct
         }
     }
 
-    public class DeleteProductCommandHandler : IRequestHandler<DeleteProductDto>
+    public class DeleteProductCommandHandler : BaseHandler, IRequestHandler<DeleteProductDto>
     {
-        private readonly IApplicationDbContext _context;
-
-        public DeleteProductCommandHandler(IApplicationDbContext context)
+        public DeleteProductCommandHandler(IUnitOfWork unitOfWork)
+            :base(unitOfWork)
         {
-            _context = context;
         }
 
         public async Task<Unit> Handle(DeleteProductDto request, CancellationToken cancellationToken)
         {
-            var product = await _context.Products.FindAsync(request.Id);
+            var product = await _unitOfWork.Products.FirstOrDefaultAsync(p => p.Id == request.Id);
 
             if (product == null)
             {
                 throw new NotFoundException(nameof(Product), request.Id);
             }
 
-            _context.Products.Remove(product);
+            _unitOfWork.Products.Remove(product);
 
-            await _context.SaveChangesAsync(cancellationToken);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }

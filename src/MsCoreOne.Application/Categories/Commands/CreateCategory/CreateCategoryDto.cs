@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MsCoreOne.Application.Common.Bases;
 using MsCoreOne.Application.Common.Interfaces;
 using MsCoreOne.Domain.Entities;
 using System.Threading;
@@ -11,22 +12,20 @@ namespace MsCoreOne.Application.Categories.Commands.CreateCategory
         public string Name { get; set; }
     }
 
-    public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryDto, int>
+    public class CreateCategoryCommandHandler : BaseHandler, IRequestHandler<CreateCategoryDto, int>
     {
-        private readonly IApplicationDbContext _context;
-
-        public CreateCategoryCommandHandler(IApplicationDbContext context)
+        public CreateCategoryCommandHandler(IUnitOfWork unitOfWork)
+            :base(unitOfWork)
         {
-            _context = context;
         }
 
         public async Task<int> Handle(CreateCategoryDto request, CancellationToken cancellationToken)
         {
             var category = new Category { Name = request.Name };
 
-            _context.Categories.Add(category);
+            await _unitOfWork.Categories.Add(category);
 
-            await _context.SaveChangesAsync(cancellationToken);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return category.Id;
         }

@@ -3,17 +3,15 @@ using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Options;
-using MsCoreOne.Application.Common.Interfaces;
 using MsCoreOne.Domain.Entities;
 using MsCoreOne.Infrastructure.Identity;
 using System.Data;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace MsCoreOne.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
+    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
         private IDbContextTransaction _currentTransaction;
 
@@ -30,11 +28,6 @@ namespace MsCoreOne.Infrastructure.Persistence
         public DbSet<Brand> Brands { get; set; }
 
         public DbSet<Country> Countries { get; set; }
-
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-        {
-            return base.SaveChangesAsync(cancellationToken);
-        }
 
         public async Task BeginTransactionAsync()
         {

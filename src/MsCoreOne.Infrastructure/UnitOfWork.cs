@@ -14,6 +14,7 @@ namespace MsCoreOne.Infrastructure
         private ICategoryRepository _categoryRepository;
         private IBrandRepository _brandRepository;
         private IProductRepository _productRepository;
+        private ICountryRepository _countryRepository;
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -23,6 +24,8 @@ namespace MsCoreOne.Infrastructure
         public ICategoryRepository Categories => _categoryRepository ?? (_categoryRepository = new CategoryRepository(_context));
         public IBrandRepository Brands => _brandRepository ?? (_brandRepository = new BrandRepository(_context));
         public IProductRepository Products => _productRepository ?? (_productRepository = new ProductRepository(_context));
+        public ICountryRepository Countries => _countryRepository ?? (_countryRepository = new CountryRepository(_context));
+        
 
         public void Dispose()
         {

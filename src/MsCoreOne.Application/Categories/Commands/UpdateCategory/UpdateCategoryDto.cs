@@ -16,18 +16,16 @@ namespace MsCoreOne.Application.Categories.Commands.UpdateCategory
         public string Name { get; set; }
     }
 
-    public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryDto>
+    public class UpdateCategoryCommandHandler : BaseHandler, IRequestHandler<UpdateCategoryDto>
     {
-        private readonly IApplicationDbContext _context;
-
-        public UpdateCategoryCommandHandler(IApplicationDbContext context)
+        public UpdateCategoryCommandHandler(IUnitOfWork unitOfWork)
+            :base(unitOfWork)
         {
-            _context = context;
         }
 
         public async Task<Unit> Handle(UpdateCategoryDto request, CancellationToken cancellationToken)
         {
-            var entity = await _context.Categories.FindAsync(request.Id);
+            var entity = await _unitOfWork.Categories.FirstOrDefaultAsync(c => c.Id == request.Id);
 
             if (entity == null)
             {
@@ -36,7 +34,9 @@ namespace MsCoreOne.Application.Categories.Commands.UpdateCategory
 
             entity.Name = request.Name;
 
-            await _context.SaveChangesAsync(cancellationToken);
+            _unitOfWork.Categories.Update(entity);
+
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }

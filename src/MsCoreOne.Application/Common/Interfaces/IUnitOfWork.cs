@@ -13,6 +13,8 @@ namespace MsCoreOne.Application.Common.Interfaces
 
         IProductRepository Products { get; }
 
+        ICountryRepository Countries { get; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

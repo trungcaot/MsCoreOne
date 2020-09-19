@@ -5,7 +5,7 @@ namespace MsCoreOne.Application.Categories.Commands.UpdateCategory
 {
     public class UpdateCategoryCommandValidatorValidator : AbstractValidator<UpdateCategoryDto>
     {
-        public UpdateCategoryCommandValidatorValidator(IApplicationDbContext context)
+        public UpdateCategoryCommandValidatorValidator(IUnitOfWork unitOfWork)
         {
             RuleFor(v => v.Name)
                 .MaximumLength(500)
@@ -13,7 +13,7 @@ namespace MsCoreOne.Application.Categories.Commands.UpdateCategory
 
             RuleFor(x => x)
                 .MustAsync(async (dto, cancellationToken) =>
-                    await new DataConflictValidator(dto, context).ValidateDataConflictAsync());
+                    await new DataConflictValidator(dto, unitOfWork).ValidateDataConflictAsync());
         }
     }
 }

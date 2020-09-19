@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+using MsCoreOne.Application.Common.Bases;
 using MsCoreOne.Application.Common.Exceptions;
 using MsCoreOne.Application.Common.Interfaces;
 using MsCoreOne.Domain.Entities;
@@ -32,54 +32,53 @@ namespace MsCoreOne.Application.Products.Commands.UpdateProduct
         public int CategoryId { get; set; }
     }
 
-    public class UpdateProductCommandHandler : IRequestHandler<UpdateProductDto>
+    public class UpdateProductCommandHandler : BaseHandler, IRequestHandler<UpdateProductDto>
     {
-        private readonly IApplicationDbContext _context;
-
         private readonly IStorageService _storageService;
 
-        public UpdateProductCommandHandler(IApplicationDbContext context,
+        public UpdateProductCommandHandler(IUnitOfWork unitOfWork,
             IStorageService storageService)
+            :base(unitOfWork)
         {
-            _context = context;
             _storageService = storageService;
         }
 
         public async Task<Unit> Handle(UpdateProductDto request, CancellationToken cancellationToken)
         {
-            var entity = await _context.Products
-                .Include(p => p.ProductCategories)
-                .FirstOrDefaultAsync(p => p.Id == request.Id);
+            var product = await _unitOfWork.Products.FirstOrDefaultAsync(p => p.Id == request.Id);
 
-            if (entity == null)
+            if (product == null)
             {
                 throw new NotFoundException(nameof(Product), request.Id);
             }
 
-            entity.Name = request.Name;
-            entity.Price = request.Price;
-            entity.Description = request.Description;
-            entity.BrandId = request.BrandId;
-            entity.Rating = request.Rating;
+            product.Name = request.Name;
+            product.Price = request.Price;
+            product.Description = request.Description;
+            product.BrandId = request.BrandId;
+            product.Rating = request.Rating;
 
             if (request.File != null)
             {
-                entity.ImageFileName = await SaveFile(request.File);
+                product.ImageFileName = await SaveFile(request.File);
             }
 
-            var productCategory = entity.ProductCategories.FirstOrDefault();
+            var productCategory = product.ProductCategories.FirstOrDefault();
             if (productCategory != null)
             {
-                entity.ProductCategories.Remove(productCategory);
+                product.ProductCategories.Remove(productCategory);
             }
-            
-            entity.ProductCategories.Add(new ProductCategory
-            {
-                ProductId = request.Id,
-                CategoryId = request.CategoryId
-            });
 
-            await _context.SaveChangesAsync(cancellationToken);
+            //TODO: Need to enhance
+            //product.ProductCategories.Add(new ProductCategory
+            //{
+            //    ProductId = request.Id,
+            //    CategoryId = request.CategoryId
+            //});
+
+            _unitOfWork.Products.Update(product);
+
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }

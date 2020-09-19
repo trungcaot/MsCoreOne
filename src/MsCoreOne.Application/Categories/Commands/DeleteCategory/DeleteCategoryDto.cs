@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MsCoreOne.Application.Common.Bases;
 using MsCoreOne.Application.Common.Exceptions;
 using MsCoreOne.Application.Common.Interfaces;
 using MsCoreOne.Domain.Entities;
@@ -17,27 +18,25 @@ namespace MsCoreOne.Application.Categories.Commands.DeleteCategory
         }
     }
 
-    public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryDto>
+    public class DeleteCategoryCommandHandler : BaseHandler, IRequestHandler<DeleteCategoryDto>
     {
-        private readonly IApplicationDbContext _context;
-
-        public DeleteCategoryCommandHandler(IApplicationDbContext context)
+        public DeleteCategoryCommandHandler(IUnitOfWork unitOfWork)
+            :base(unitOfWork)
         {
-            _context = context;
         }
 
         public async Task<Unit> Handle(DeleteCategoryDto request, CancellationToken cancellationToken)
         {
-            var category = await _context.Categories.FindAsync(request.Id);
+            var category = await _unitOfWork.Categories.FirstOrDefaultAsync(c => c.Id == request.Id);
 
             if (category == null)
             {
                 throw new NotFoundException(nameof(Category), request.Id);
             }
 
-            _context.Categories.Remove(category);
+            _unitOfWork.Categories.Remove(category);
 
-            await _context.SaveChangesAsync(cancellationToken);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }

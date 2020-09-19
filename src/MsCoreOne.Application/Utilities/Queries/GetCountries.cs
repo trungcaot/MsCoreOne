@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
+using MsCoreOne.Application.Common.Bases;
 using MsCoreOne.Application.Common.Interfaces;
 using MsCoreOne.Application.Utilities.Queries.Dtos;
 using Newtonsoft.Json;
@@ -18,15 +18,14 @@ namespace MsCoreOne.Application.Utilities.Queries
         public GetCountriesQuery() { }
     }
 
-    public class GetCountriesHandler : IRequestHandler<GetCountriesQuery, IEnumerable<CountryDto>>
+    public class GetCountriesHandler : BaseHandler, IRequestHandler<GetCountriesQuery, IEnumerable<CountryDto>>
     {
-        private readonly IApplicationDbContext _context;
         private readonly IDistributedCache _distributedCache;
 
-        public GetCountriesHandler(IApplicationDbContext context,
+        public GetCountriesHandler(IUnitOfWork unitOfWork,
             IDistributedCache distributedCache)
+            :base(unitOfWork)
         {
-            _context = context;
             _distributedCache = distributedCache;
         }
 
@@ -44,7 +43,7 @@ namespace MsCoreOne.Application.Utilities.Queries
             }
             else
             {
-                var countries = await _context.Countries.ToListAsync();
+                var countries = await _unitOfWork.Countries.GetAllAsync();
                 countryDtos = countries.Select(c => new CountryDto
                 {
                     Id = c.Id,

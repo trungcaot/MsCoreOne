@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
+using MsCoreOne.Application.Common.Bases;
 using MsCoreOne.Application.Common.Interfaces;
 using MsCoreOne.Domain.Entities;
 using System;
@@ -28,23 +29,20 @@ namespace MsCoreOne.Application.Products.Commands.CreateProduct
         public int CategoryId { get; set; }
     }
 
-    public class CreateProductCommandHandler : IRequestHandler<CreateProductDto, int>
+    public class CreateProductCommandHandler : BaseHandler, IRequestHandler<CreateProductDto, int>
     {
-        private readonly IApplicationDbContext _context;
-
         private readonly IStorageService _storageService;
 
-        public CreateProductCommandHandler(IApplicationDbContext context,
+        public CreateProductCommandHandler(IUnitOfWork unitOfWork,
             IStorageService storageService)
+            :base(unitOfWork)
         {
-            _context = context;
-
             _storageService = storageService;
         }
 
         public async Task<int> Handle(CreateProductDto request, CancellationToken cancellationToken)
         {
-            var category = await _context.Categories.FindAsync(request.CategoryId);
+            var category = await _unitOfWork.Categories.FirstOrDefaultAsync(c => c.Id == request.CategoryId);
 
             var product = new Product
             { 
@@ -69,9 +67,9 @@ namespace MsCoreOne.Application.Products.Commands.CreateProduct
                 }
             };
             
-            _context.Products.Add(product);
+            await _unitOfWork.Products.Add(product);
 
-            await _context.SaveChangesAsync(cancellationToken);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return product.Id;
         }
