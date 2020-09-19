@@ -86,3 +86,13 @@ To testing with redis cache, you can install redis by the following way:
 docker-compose -f .\docker-compose-infra.yml up redis
 ```
 Note: You should update your IP in appsetting for redis configuration to make sure mscoreone-api connect to redis server successfully.
+
+
+## :handshake: Contributing
+
+Contributions, issues and feature requests are welcome!
+
+
+## :man_astronaut: Show your support
+
+Give a :star: if you like this project!
