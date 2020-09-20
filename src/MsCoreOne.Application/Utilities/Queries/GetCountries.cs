@@ -1,13 +1,9 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Caching.Distributed;
 using MsCoreOne.Application.Common.Bases;
 using MsCoreOne.Application.Common.Interfaces;
 using MsCoreOne.Application.Utilities.Queries.Dtos;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,46 +16,32 @@ namespace MsCoreOne.Application.Utilities.Queries
 
     public class GetCountriesHandler : BaseHandler, IRequestHandler<GetCountriesQuery, IEnumerable<CountryDto>>
     {
-        private readonly IDistributedCache _distributedCache;
+        private readonly IRedisCacheManager _redisCacheManager;
 
         public GetCountriesHandler(IUnitOfWork unitOfWork,
-            IDistributedCache distributedCache)
+            IRedisCacheManager redisCacheManager)
             :base(unitOfWork)
         {
-            _distributedCache = distributedCache;
+            _redisCacheManager = redisCacheManager;
         }
 
         public async Task<IEnumerable<CountryDto>> Handle(GetCountriesQuery request, CancellationToken cancellationToken)
         {
             var countryDtos = new List<CountryDto>();
-            var cacheKey = nameof(GetCountriesQuery);
-            string serializedCountries;
 
-            var redisCountries = await _distributedCache.GetAsync(cacheKey);
-            if (redisCountries != null)
+            countryDtos = await _redisCacheManager.GetAsync<List<CountryDto>>(nameof(GetCountriesQuery));
+            if (countryDtos != null)
+                return countryDtos;
+
+            var countries = await _unitOfWork.Countries.GetAllAsync();
+            countryDtos = countries.Select(c => new CountryDto
             {
-                serializedCountries = Encoding.UTF8.GetString(redisCountries);
-                countryDtos = JsonConvert.DeserializeObject<List<CountryDto>>(serializedCountries);
-            }
-            else
-            {
-                var countries = await _unitOfWork.Countries.GetAllAsync();
-                countryDtos = countries.Select(c => new CountryDto
-                {
-                    Id = c.Id,
-                    SortName = c.SortName,
-                    Name = c.Name
-                }).ToList();
+                Id = c.Id,
+                SortName = c.SortName,
+                Name = c.Name
+            }).ToList();
 
-                serializedCountries = JsonConvert.SerializeObject(countryDtos);
-                redisCountries = Encoding.UTF8.GetBytes(serializedCountries);
-
-                //TODO: Need to move options to global of the system.
-                var options = new DistributedCacheEntryOptions()
-                    .SetAbsoluteExpiration(DateTime.Now.AddMinutes(10))
-                    .SetSlidingExpiration(TimeSpan.FromMinutes(2));
-                await _distributedCache.SetAsync(cacheKey, redisCountries, options);
-            }
+            await _redisCacheManager.SetAsync<List<CountryDto>>(nameof(GetCountriesQuery), countryDtos);
             return countryDtos;
         }
     }

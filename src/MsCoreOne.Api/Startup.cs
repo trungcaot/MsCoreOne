@@ -52,12 +52,6 @@ namespace MsCoreOne.Api
                 .AddNewtonsoftJson();
 
             services.AddRazorPages();
-
-            services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = Configuration["Redis:Configuration"];
-            });
-
             services.RegisterSwagger();
         }
 

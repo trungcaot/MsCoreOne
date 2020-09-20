@@ -123,6 +123,11 @@ namespace MsCoreOne.Infrastructure
 
             services.AddMemoryCache();
             services.AddSingleton<IMemoryCacheManager, MemoryCacheManager>();
+            services.AddSingleton<IRedisCacheManager, RedisCacheManager>();
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = configuration["Redis:Configuration"];
+            });
 
             return services;
         }
