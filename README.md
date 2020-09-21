@@ -20,9 +20,10 @@
 |Identity Server 4 | Yes |
 |Swagger UI | Yes |
 |React + Typescript | Yes |
+|Vue.js | Yes |
 |Sql Server | Yes |
 |PostgresQL | No |
-|Vue js/Blazor/Angular | No |
+|Blazor/Angular | No |
 
 # Onion Architecture
 ![alt text](/docs/imgs/onion_architecture.png)
