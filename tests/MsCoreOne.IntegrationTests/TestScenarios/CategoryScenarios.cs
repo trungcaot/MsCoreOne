@@ -1,9 +1,7 @@
 ﻿using MsCoreOne.Application.Categories.Commands.CreateCategory;
 using MsCoreOne.Application.Categories.Commands.UpdateCategory;
 using MsCoreOne.Application.Categories.Queries.Dtos;
-using MsCoreOne.Application.Common.Models;
 using MsCoreOne.IntegrationTests.Common;
-using MsCoreOne.IntegrationTests.Common.Extensions;
 using MsCoreOne.IntegrationTests.Common.Utility.TestCaseOrdering;
 using MsCoreOne.IntegrationTests.Infrastructure;
 using System.Collections.Generic;
@@ -69,7 +67,7 @@ namespace MsCoreOne.IntegrationTests.TestScenarios
 
             // Act
             var response = await HttpClient.GetAsync($"{_url}/{categoryId}");
-            var category = await response.BodyAs<CategoryDto>();
+            var category = await response.Content.ReadAsAsync<CategoryDto>();
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -81,7 +79,7 @@ namespace MsCoreOne.IntegrationTests.TestScenarios
         {
             // Act
             var response = await HttpClient.GetAsync(_url);
-            var categories = await response.BodyAs<IEnumerable<CategoryDto>>();
+            var categories = await response.Content.ReadAsAsync<IEnumerable<CategoryDto>>();
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);

@@ -1,17 +1,12 @@
-﻿using MsCoreOne.Application.Common.Models;
-using MsCoreOne.Application.Users.Commands.CreateUser;
+﻿using MsCoreOne.Application.Users.Commands.CreateUser;
 using MsCoreOne.Application.Users.Commands.UpdateUser;
 using MsCoreOne.Application.Users.Share;
 using MsCoreOne.IntegrationTests.Common;
-using MsCoreOne.IntegrationTests.Common.Extensions;
 using MsCoreOne.IntegrationTests.Common.Utility.TestCaseOrdering;
 using MsCoreOne.IntegrationTests.Infrastructure;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -108,7 +103,7 @@ namespace MsCoreOne.IntegrationTests.TestScenarios
         {
             // Act
             var response = await HttpClient.GetAsync(_url);
-            var brands = await response.BodyAs<IEnumerable<UserDto>>();
+            var brands = await response.Content.ReadAsAsync<IEnumerable<UserDto>>();
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);

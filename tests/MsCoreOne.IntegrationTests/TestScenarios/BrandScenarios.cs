@@ -1,8 +1,8 @@
 ﻿using MsCoreOne.Domain.Entities;
-using MsCoreOne.IntegrationTests.Common.Extensions;
 using MsCoreOne.IntegrationTests.Infrastructure;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -21,7 +21,7 @@ namespace MsCoreOne.IntegrationTests.TestScenarios
         {
             // Act
             var response = await HttpClient.GetAsync(_url);
-            var brands = await response.BodyAs<IEnumerable<Brand>>();
+            var brands = await response.Content.ReadAsAsync<IEnumerable<Brand>>();
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);

@@ -1,10 +1,5 @@
-﻿using Moq;
-using MsCoreOne.Application.Common.Interfaces;
-using MsCoreOne.Application.Products.Commands.CreateProduct;
-using MsCoreOne.Application.Products.Commands.UpdateProduct;
-using MsCoreOne.Domain.Entities;
+﻿using MsCoreOne.Domain.Entities;
 using MsCoreOne.IntegrationTests.Common;
-using MsCoreOne.IntegrationTests.Common.Extensions;
 using MsCoreOne.IntegrationTests.Common.Utility.TestCaseOrdering;
 using MsCoreOne.IntegrationTests.Infrastructure;
 using System.Collections.Generic;
@@ -88,7 +83,7 @@ namespace MsCoreOne.IntegrationTests.TestScenarios
 
             // Act
             var response = await HttpClient.GetAsync($"{_url}/{productId}");
-            var product = await response.BodyAs<Product>();
+            var product = await response.Content.ReadAsAsync<Product>();
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -100,7 +95,7 @@ namespace MsCoreOne.IntegrationTests.TestScenarios
         {
             // Act
             var response = await HttpClient.GetAsync(_url);
-            var products = await response.BodyAs<IEnumerable<Product>>();
+            var products = await response.Content.ReadAsAsync<IEnumerable<Product>>();
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
