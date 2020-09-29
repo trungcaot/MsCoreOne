@@ -14,16 +14,16 @@
 ## The technologies have implemented as image above.
 | Technologies    | Yes/No       |
 |-----------------|----------------|
-|ASP .NET Core | Yes |
-|ASP .NET Core Mvc | Yes |
-|Entity Framework Core | Yes |
-|Identity Server 4 | Yes |
-|Swagger UI | Yes |
-|React + Typescript | Yes |
-|Vue.js | Yes |
-|Sql Server | Yes |
-|PostgresQL | No |
-|Blazor/Angular | No |
+|ASP .NET Core | ✅ |
+|ASP .NET Core Mvc | ✅ |
+|Entity Framework Core | ✅ |
+|Identity Server 4 | ✅ |
+|Swagger UI | ✅ |
+|React + Typescript | ✅ |
+|Vue.js | ✅ |
+|Sql Server | ✅ |
+|PostgresQL |❌ |
+|Blazor/Angular |❌ |
 
 # Onion Architecture
 ![alt text](/docs/imgs/onion_architecture.png)
