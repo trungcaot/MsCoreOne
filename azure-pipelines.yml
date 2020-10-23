@@ -45,7 +45,7 @@ jobs:
       # The summary allows to view the coverage percentage in the summary tab
       # The web site allows to view which lines are covered directly in Azure Pipeline
       - task: PublishCodeCoverageResults@1
-        displayName: 'Publish code coverage'
+        displayName: 'Publish code coverage test'
         inputs:
           codeCoverageTool: Cobertura
           summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
