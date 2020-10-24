@@ -30,7 +30,7 @@ jobs:
         displayName: dotnet test
         inputs:
           command: test
-          arguments: '--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=BuildReports\Coverage\ /p:ExcludeByFile=**/Persistence/ApplicationDbContextSeed.cs /p:Exclude=[*]MsCoreOne.Infrastructure.Migrations.* /p:Exclude=[*]MsCoreOne.Pages.* /p:Exclude=[*]MsCoreOne.Areas.*'
+          arguments: '--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:ExcludeByFile=**/Persistence/ApplicationDbContextSeed.cs /p:Exclude=[*]MsCoreOne.Infrastructure.Migrations.* /p:Exclude=[*]MsCoreOne.Pages.* /p:Exclude=[*]MsCoreOne.Areas.*'
           projects: 'tests/**/*.csproj'
           nobuild: true
 
@@ -50,6 +50,13 @@ jobs:
           codeCoverageTool: Cobertura
           summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
           reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
+
+      - task: PublishTestResults@2
+        displayName: 'Publish Test Results'
+        condition: succeededOrFailed()
+        inputs:
+            testRunner: XUnit
+            testResultsFiles: '**/*.trx'
 
       - task: DotNetCoreCLI@2
         displayName: Publish MsCoreOne APIs
