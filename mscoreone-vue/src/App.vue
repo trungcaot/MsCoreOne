@@ -1,17 +1,18 @@
 <template>
   <div class="container">
-    
-    <user-settings-form></user-settings-form>
+    <v-app>
+      <v-alert
+            type="success"
+          >I'm an alert with a top border and red color</v-alert>
+    </v-app>
   </div>
 </template>
 
 <script>
-import UserSettingsForm from './components/UserSettingsForm.vue'
 
 export default {
   name: 'App',
   components: {
-    UserSettingsForm
   }
 }
 </script>

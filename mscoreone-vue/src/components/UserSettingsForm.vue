@@ -28,10 +28,10 @@ export default {
   },
   methods: {
     submit() {
-      console.log("Submitting preferences...", {
-        email: this.email,
-        receiveNewsletter: this.receiveNewsletter
-      })
+      // console.log({
+      //   email: this.email,
+      //   receiveNewsletter: this.receiveNewsletter
+      // });
     }
   }
 }
