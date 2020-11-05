@@ -1,6 +1,6 @@
 <template>
     <v-switch 
-      :v-model="value"
+      :v-model="toggled"
       @click="toggle"
       label="Send you occasional news and updates."
     ></v-switch>
@@ -8,11 +8,16 @@
 
 <script>
 export default {
-  props: ['value'],
+  model: {
+    prop: 'toggled',
+    event: 'toggle'
+  },
 
+  props: ['toggled'],
+  
   methods: {
     toggle() {
-      this.$emit('input', !this.value)
+      this.$emit('toggle', !this.toggled)
     }
   }
 }
