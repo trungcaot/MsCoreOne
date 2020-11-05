@@ -37,7 +37,10 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "no-console": "off",
+      "no-debugger": "off"
+    }
   },
   "browserslist": [
     "> 1%",
