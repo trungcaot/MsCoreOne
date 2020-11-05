@@ -1,6 +1,7 @@
 <template>
     <v-switch 
-      :v-model="test"
+      :v-model="value"
+      @click="toggle"
       label="Send you occasional news and updates."
     ></v-switch>
 </template>
