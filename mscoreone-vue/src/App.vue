@@ -1,18 +1,14 @@
 <template>
-  <div class="container">
-    <v-app>
-      <user-settings-form></user-settings-form>
-    </v-app>
-  </div>
+  <wrapper-component></wrapper-component>
 </template>
 
 <script>
-import UserSettingsForm from './components/UserSettingsForm'
+import WrapperComponent from './components/WarpperComponent'
 
 export default {
   name: 'App',
   components: {
-    UserSettingsForm
+    WrapperComponent
   }
 }
 </script>
