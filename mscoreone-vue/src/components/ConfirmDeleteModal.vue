@@ -10,9 +10,9 @@
       <p>Deleting your account cannot be undone.</p>
     </div>
     <div class="modal-footer">
-        <button type="button" @click="cancel" class="btn btn-grey">Cancel</button>
-        <button type="button" @click="confirmDelete" class="btn btn-danger" data-dismiss="modal">Delete it</button>
-      </div>
+      <button type="button" @click="cancel" class="btn btn-grey">Cancel</button>
+      <button type="button" @click="confirmDelete" class="btn btn-danger" data-dismiss="modal">Delete it</button>
+    </div>
   </modal-dialog>
 </template>
 
