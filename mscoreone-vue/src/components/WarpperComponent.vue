@@ -32,7 +32,7 @@
                 <hello-world tag="span"></hello-world>
               </div>
               <div class="col">
-                
+                <func-toggle-input></func-toggle-input>
               </div>
             </div>
           </div>
@@ -46,12 +46,14 @@
 import AnnouncementModal from './AnnouncementModal'
 import ConfirmDeleteModal from './ConfirmDeleteModal'
 import HelloWorld from './HelloWorld'
+import FuncToggleInput from "./FuncToggleInput";
 
 export default {
   components: {
     AnnouncementModal,
     ConfirmDeleteModal,
-    HelloWorld
+    HelloWorld,
+    FuncToggleInput
   },
 
   data(){
