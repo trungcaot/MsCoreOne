@@ -33,6 +33,8 @@
               </div>
               <div class="col">
                 <func-toggle-input></func-toggle-input>
+                <div class="clearfix"></div>
+                <func-contact></func-contact>
               </div>
             </div>
           </div>
@@ -47,13 +49,15 @@ import AnnouncementModal from './AnnouncementModal'
 import ConfirmDeleteModal from './ConfirmDeleteModal'
 import HelloWorld from './HelloWorld'
 import FuncToggleInput from "./FuncToggleInput";
+import FuncContact from "./FuncContact";
 
 export default {
   components: {
     AnnouncementModal,
     ConfirmDeleteModal,
     HelloWorld,
-    FuncToggleInput
+    FuncToggleInput,
+    FuncContact
   },
 
   data(){
