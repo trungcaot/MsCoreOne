@@ -1,11 +1,12 @@
-using MsCoreOne.Infrastructure.Identity;
-using MsCoreOne.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MsCoreOne.Infrastructure.Identity;
+using MsCoreOne.Infrastructure.Persistence;
 using System;
 using System.Threading.Tasks;
 
@@ -52,7 +53,17 @@ namespace MsCoreOne.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.ConfigureLogging((hostingContext, logging) => 
+                    webBuilder.ConfigureAppConfiguration((builderContext, config) =>
+                    {
+                        var env = builderContext.HostingEnvironment;
+
+                        config.SetBasePath(env.ContentRootPath);
+                        config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                        config.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+
+                        config.AddEnvironmentVariables();
+                    })
+                    .ConfigureLogging((hostingContext, logging) => 
                     {
                         logging.ClearProviders();
                         logging.SetMinimumLevel(LogLevel.Trace);
