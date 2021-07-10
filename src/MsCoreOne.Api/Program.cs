@@ -52,7 +52,11 @@ namespace MsCoreOne.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureLogging((hostingContext, logging) => 
+                    {
+                        logging.ClearProviders();
+                        logging.SetMinimumLevel(LogLevel.Trace);
+                    }).UseStartup<Startup>();
                 });
     }
 }
