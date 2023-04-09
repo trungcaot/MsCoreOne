@@ -1,5 +1,5 @@
 
- # MsCoreOne - Simple Ecommerce
+ # MsCoreOne - Simple Ecommerce (Upgrading is comming!)
 
  This is a simple ecommerce to practice technologies.
 
