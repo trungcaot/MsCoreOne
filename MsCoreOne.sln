@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29319.158
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MsCoreOne.Api", "src\MsCoreOne.Api\MsCoreOne.Api.csproj", "{724D5EE1-C2C3-42E3-8BAE-D75E57BA3CD8}"
 EndProject
@@ -26,6 +26,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MsCoreOne.FrontMvc", "src\MsCoreOne.FrontMvc\MsCoreOne.FrontMvc.csproj", "{14F5FBEB-EF79-4E4A-89A0-AC5E3586D2AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontOffice", "FrontOffice", "{42B07ADE-478B-423B-828C-B597314B2D89}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{F9BCAEE4-D9ED-45E7-BEF6-083BE7D8C26D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{A7706422-4D1C-45D6-B1EC-4C150F68A46A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API", "src\Services\Catalog\Catalog.API\Catalog.API.csproj", "{88531109-BCE9-420D-902A-D5A3FFA3CF82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +63,10 @@ Global
 		{14F5FBEB-EF79-4E4A-89A0-AC5E3586D2AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14F5FBEB-EF79-4E4A-89A0-AC5E3586D2AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14F5FBEB-EF79-4E4A-89A0-AC5E3586D2AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88531109-BCE9-420D-902A-D5A3FFA3CF82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88531109-BCE9-420D-902A-D5A3FFA3CF82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88531109-BCE9-420D-902A-D5A3FFA3CF82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88531109-BCE9-420D-902A-D5A3FFA3CF82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +78,9 @@ Global
 		{117DA02F-5274-4565-ACC6-DA9B6E568B09} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
 		{4FF7E541-E4BA-4FF4-BE25-EC907D92BDA8} = {664D406C-2F83-48F0-BFC3-408D5CB53C65}
 		{14F5FBEB-EF79-4E4A-89A0-AC5E3586D2AD} = {42B07ADE-478B-423B-828C-B597314B2D89}
+		{F9BCAEE4-D9ED-45E7-BEF6-083BE7D8C26D} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
+		{A7706422-4D1C-45D6-B1EC-4C150F68A46A} = {F9BCAEE4-D9ED-45E7-BEF6-083BE7D8C26D}
+		{88531109-BCE9-420D-902A-D5A3FFA3CF82} = {A7706422-4D1C-45D6-B1EC-4C150F68A46A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3CB609D9-5D54-4C11-A371-DAAC8B74E430}
